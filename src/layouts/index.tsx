@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link, useLocation } from "react-router-dom"
+import { Link, useLocation, Outlet } from "react-router-dom"
 import { Breadcrumb, Layout, Menu, theme, Button } from "antd"
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons"
 
@@ -67,7 +67,7 @@ export default function AdminLayout({ children }: any) {
             background: colorBgContainer,
           }}
         >
-          {children}
+          <Outlet />
         </Content>
       </Layout>
     </Layout>

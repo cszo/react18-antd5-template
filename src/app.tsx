@@ -1,10 +1,6 @@
-import RouterElement from "./routes";
-import AdminLayout from "./layouts";
+import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import { routes } from "./routes/config"
 
 export default function App() {
-  return (
-    <AdminLayout>
-      <RouterElement />
-    </AdminLayout>
-  );
+  return <RouterProvider router={createBrowserRouter(routes)} />
 }

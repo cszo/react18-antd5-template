@@ -1,57 +1,69 @@
 import { AppstoreOutlined, DesktopOutlined, MailOutlined } from "@ant-design/icons"
 
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import lazyLoad from "./lazy-load"
+import NotFound from "./404"
 
 const menuRoutes = [
   {
-    name: "首页",
-    path: "/home",
-    icon: <DesktopOutlined />,
-    element: lazyLoad("../pages/home"),
+    path: "/",
+    element: <Navigate replace to="/home" />,
   },
   {
-    name: "订单",
-    path: "/order",
-    icon: <MailOutlined />,
+    path: "/",
+    element: lazyLoad("../layouts"),
     children: [
       {
-        name: "列表",
-        path: "/order/list",
-        element: lazyLoad("../pages/order/list"),
+        name: "首页",
+        path: "/home",
+        icon: <DesktopOutlined />,
+        element: lazyLoad("../pages/home"),
       },
       {
-        name: "详情",
-        path: "/order/detail",
-        hideInMenu: true,
-        element: lazyLoad("../pages/order/detail"),
-      },
-    ],
-  },
-  {
-    name: "物品",
-    path: "/product",
-    icon: <AppstoreOutlined />,
-    children: [
-      {
-        index: true,
-        name: "手机",
-        path: "/product/phone",
-        element: lazyLoad("../pages/product/phone"),
-      },
-      {
-        name: "奢侈品",
-        path: "/product/scp",
+        name: "订单",
+        path: "/order",
+        icon: <MailOutlined />,
         children: [
           {
-            name: "黄金",
-            path: "/product/scp/gold",
-            element: lazyLoad("../pages/product/luxury/gold"),
+            name: "列表",
+            path: "/order/list",
+            element: lazyLoad("../pages/order/list"),
+          },
+          {
+            name: "详情",
+            path: "/order/detail",
+            hideInMenu: true,
+            element: lazyLoad("../pages/order/detail"),
+          },
+        ],
+      },
+      {
+        name: "物品",
+        path: "/product",
+        icon: <AppstoreOutlined />,
+        children: [
+          {
+            index: true,
+            name: "手机",
+            path: "/product/phone",
+            element: lazyLoad("../pages/product/phone"),
+          },
+          {
+            name: "奢侈品",
+            path: "/product/scp",
+            children: [
+              {
+                name: "黄金",
+                path: "/product/scp/gold",
+                element: lazyLoad("../pages/product/luxury/gold"),
+              },
+            ],
           },
         ],
       },
     ],
   },
+  { path: "*", element: <NotFound /> },
 ]
 
 // extract MenuItems for antd Menu
@@ -107,7 +119,7 @@ const extractRoutes = (menuRoutes: any) => {
   return recurExtractRoutes(menuRoutes, [])
 }
 
-const { menuItems, breadcrumbNameMap } = extractMenuItems(menuRoutes)
+const { menuItems, breadcrumbNameMap } = extractMenuItems(menuRoutes[1].children)
 console.log("menuItems", menuItems, "breadcrumbNameMap", breadcrumbNameMap)
 const routes = extractRoutes(menuRoutes)
 console.log("routes", routes)
