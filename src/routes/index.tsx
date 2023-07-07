@@ -1,5 +1,5 @@
 import { AppstoreOutlined, DesktopOutlined, MailOutlined } from "@ant-design/icons"
-
+import { lazy } from "react"
 import { Link, Navigate } from "react-router-dom"
 import lazyLoad from "./lazy-load"
 import NotFound from "./404"
@@ -11,13 +11,14 @@ const menuRoutes = [
   },
   {
     path: "/",
-    element: lazyLoad("../layouts"),
+    // 这种写法为了方便vscode识别import参数为path并快速跳转 不然可以简化为只传字符串参数？
+    element: lazyLoad(lazy(() => import("@/layouts"))),
     children: [
       {
         name: "首页",
         path: "/home",
         icon: <DesktopOutlined />,
-        element: lazyLoad("../pages/home"),
+        element: lazyLoad(lazy(() => import("@/pages/home"))),
       },
       {
         name: "订单",
@@ -27,13 +28,13 @@ const menuRoutes = [
           {
             name: "列表",
             path: "/order/list",
-            element: lazyLoad("../pages/order/list"),
+            element: lazyLoad(lazy(() => import("@/pages/order/list"))),
           },
           {
             name: "详情",
             path: "/order/detail",
             hideInMenu: true,
-            element: lazyLoad("../pages/order/detail"),
+            element: lazyLoad(lazy(() => import("@/pages/order/detail"))),
           },
         ],
       },
@@ -46,7 +47,7 @@ const menuRoutes = [
             index: true,
             name: "手机",
             path: "/product/phone",
-            element: lazyLoad("../pages/product/phone"),
+            element: lazyLoad(lazy(() => import("@/pages/product/phone"))),
           },
           {
             name: "奢侈品",
@@ -55,7 +56,7 @@ const menuRoutes = [
               {
                 name: "黄金",
                 path: "/product/scp/gold",
-                element: lazyLoad("../pages/product/luxury/gold"),
+                element: lazyLoad(lazy(() => import("@/pages/product/luxury/gold"))),
               },
             ],
           },

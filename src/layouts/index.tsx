@@ -1,13 +1,13 @@
 import { useState } from "react"
-import { Link, useLocation, Outlet } from "react-router-dom"
 import { Breadcrumb, Layout, Menu, theme, Button } from "antd"
+import { Link, useLocation, Outlet } from "react-router-dom"
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons"
 
-import { menuItems, breadcrumbNameMap } from "../routes/config"
+import { menuItems, breadcrumbNameMap } from "../routes"
 
 const { Content, Sider } = Layout
 
-export default function AdminLayout({ children }: any) {
+export default function AdminLayout() {
   const location = useLocation()
   const [collapsed, setCollapsed] = useState(false)
   // openKeys不能只根据location计算 还要判断层级
