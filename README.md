@@ -1,10 +1,9 @@
 # react18-antd5-template
 
-## 致力打造成一个基于新版主流技术的React中后台模版
+致力打造成一个基于新版主流技术的React中后台模版
 
 ## 相关技术栈
-
-- `react18`,`vite4`,`antd5`,`typescript`,`react-router-dom6`
+`react18`,`vite4`,`antd5`,`typescript`,`react-router-dom6`
 - [React-Router](https://reactrouter.com/en/main)
 - [ReactJS](https://react.dev/)
 - [Vite](https://vitejs.dev)
@@ -26,17 +25,14 @@ react18-antd5-template
 ├─vite.config.ts // vite配置
 ```
 
-### 环境
-- nodejs >= 16
-
 ### 开始
+
+- 环境 nodejs >= 16
 
 - 本地启动项目
    ```bash
    npm run dev
    ```
-
-### 发布
 
 - 生产环境打包
   ```bash
