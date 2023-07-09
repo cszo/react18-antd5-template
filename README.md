@@ -15,7 +15,8 @@
 ## 目录结构
 ```markdown
 react18-antd5-template
-├─src // 公共包存放路径
+
+├─src
 | ├─layouts // 布局组件
 | ├─pages // 典型页面
 | ├─routes // 路由
