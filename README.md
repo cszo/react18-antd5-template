@@ -2,8 +2,8 @@
 
 致力打造成一个基于新版主流技术的React中后台模版
 
-## 相关技术栈
-`react18`,`vite4`,`antd5`,`typescript`,`react-router-dom6`
+## 技术栈
+`react18`、`vite4`、`antd5`、`typescript`、`react-router-dom6`
 - [React-Router](https://reactrouter.com/en/main)
 - [ReactJS](https://react.dev/)
 - [Vite](https://vitejs.dev)
