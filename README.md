@@ -27,16 +27,19 @@ react18-antd5-template
 
 ### 开始
 
-- 环境 nodejs >= 16
+- 安装依赖
+   ```bash
+   yarn
+   ```
 
 - 本地启动项目
    ```bash
-   npm run dev
+   yarn dev
    ```
 
 - 生产环境打包
   ```bash
-  npm run build
+  yarn build
   ```
 
 ### 提交格式
