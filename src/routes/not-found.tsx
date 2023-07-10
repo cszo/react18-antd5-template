@@ -9,7 +9,7 @@ export type NotFoundPropsType = {
   extra?: React.ReactNode
 }
 
-function NotFound({
+export default function NotFound({
   status = '404',
   title = '404',
   subTitle = '您访问的页面不存在',
@@ -17,5 +17,3 @@ function NotFound({
 }: NotFoundPropsType) {
   return <Result status={status} title={title} subTitle={subTitle} extra={extra} />
 }
-
-export default NotFound
