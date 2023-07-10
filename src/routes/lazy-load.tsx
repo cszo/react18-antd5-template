@@ -1,8 +1,8 @@
-import { Suspense } from 'react'
+import { Suspense, ComponentType } from 'react'
 import { Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 
-const lazyLoad = (Comp: any) => {
+const lazyLoad = (Comp: ComponentType) => {
   const AntdIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />
 
   return (
