@@ -10,7 +10,7 @@ const { Content, Sider } = Layout
 export default function AdminLayout() {
   const location = useLocation()
   const [collapsed, setCollapsed] = useState(false)
-  // openKeys不能只根据location计算 还要判断层级
+  // openKeys不能只根据location计算 还要判断层级 否则无法在刷新的时候确定展开菜单
   const [openKeys, setOpenKeys] = useState<string[]>([])
   // selectedKeys可根据location计算出来(location.pathname即menu key)
   const selectedKeys = [location.pathname]
