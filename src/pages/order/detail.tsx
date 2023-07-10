@@ -3,5 +3,5 @@ export default function OrderDetail() {
     <div>
       <h2>Order detail</h2>
     </div>
-  );
+  )
 }

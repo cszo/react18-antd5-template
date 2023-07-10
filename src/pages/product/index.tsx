@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet } from 'react-router-dom'
 
 export default function Product() {
   return (
@@ -6,5 +6,5 @@ export default function Product() {
       <h2>Product</h2>
       <Outlet />
     </div>
-  );
+  )
 }
