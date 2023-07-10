@@ -3,5 +3,5 @@ export default function Luxury() {
     <div>
       <h2>gold</h2>
     </div>
-  );
+  )
 }

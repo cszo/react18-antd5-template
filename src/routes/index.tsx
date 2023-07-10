@@ -1,70 +1,70 @@
-import { AppstoreOutlined, DesktopOutlined, MailOutlined } from "@ant-design/icons"
-import { lazy } from "react"
-import { Link, Navigate } from "react-router-dom"
-import lazyLoad from "./lazy-load"
-import NotFound from "./404"
+import { AppstoreOutlined, DesktopOutlined, MailOutlined } from '@ant-design/icons'
+import { lazy } from 'react'
+import { Link, Navigate } from 'react-router-dom'
+import lazyLoad from './lazy-load'
+import NotFound from './404'
 
 const menuRoutes = [
   {
-    path: "/",
-    element: <Navigate replace to="/home" />,
+    path: '/',
+    element: <Navigate replace to="/home" />
   },
   {
-    path: "/",
+    path: '/',
     // 这种写法为了方便vscode识别import参数为path并快速跳转 不然可以简化为只传字符串参数？
-    element: lazyLoad(lazy(() => import("@/layouts"))),
+    element: lazyLoad(lazy(() => import('@/layouts'))),
     children: [
       {
-        name: "首页",
-        path: "/home",
+        name: '首页',
+        path: '/home',
         icon: <DesktopOutlined />,
-        element: lazyLoad(lazy(() => import("@/pages/home"))),
+        element: lazyLoad(lazy(() => import('@/pages/home')))
       },
       {
-        name: "订单",
-        path: "/order",
+        name: '订单',
+        path: '/order',
         icon: <MailOutlined />,
         children: [
           {
-            name: "列表",
-            path: "/order/list",
-            element: lazyLoad(lazy(() => import("@/pages/order/list"))),
+            name: '列表',
+            path: '/order/list',
+            element: lazyLoad(lazy(() => import('@/pages/order/list')))
           },
           {
-            name: "详情",
-            path: "/order/detail",
+            name: '详情',
+            path: '/order/detail',
             hideInMenu: true,
-            element: lazyLoad(lazy(() => import("@/pages/order/detail"))),
-          },
-        ],
+            element: lazyLoad(lazy(() => import('@/pages/order/detail')))
+          }
+        ]
       },
       {
-        name: "物品",
-        path: "/product",
+        name: '物品',
+        path: '/product',
         icon: <AppstoreOutlined />,
         children: [
           {
             index: true,
-            name: "手机",
-            path: "/product/phone",
-            element: lazyLoad(lazy(() => import("@/pages/product/phone"))),
+            name: '手机',
+            path: '/product/phone',
+            element: lazyLoad(lazy(() => import('@/pages/product/phone')))
           },
           {
-            name: "奢侈品",
-            path: "/product/scp",
+            name: '奢侈品',
+            path: '/product/scp',
             children: [
               {
-                name: "黄金",
-                path: "/product/scp/gold",
-                element: lazyLoad(lazy(() => import("@/pages/product/luxury/gold"))),
-              },
-            ],
-          },
-        ],
-      },
-    ],
+                name: '黄金',
+                path: '/product/scp/gold',
+                element: lazyLoad(lazy(() => import('@/pages/product/luxury/gold')))
+              }
+            ]
+          }
+        ]
+      }
+    ]
   },
-  { path: "*", element: <NotFound /> },
+  { path: '*', element: <NotFound /> }
 ]
 
 // extract MenuItems for antd Menu
@@ -84,9 +84,9 @@ const extractMenuItems = (menuRoutes: any) => {
             label: children?.length ? name : <Link to={path}>{name}</Link>,
             ...(children?.length
               ? {
-                  children: recurExtractMenuItems(children, []),
+                  children: recurExtractMenuItems(children, [])
                 }
-              : {}),
+              : {})
           })
         }
       })
@@ -109,9 +109,9 @@ const extractRoutes = (menuRoutes: any) => {
           element,
           ...(children?.length
             ? {
-                children: recurExtractRoutes(children, []),
+                children: recurExtractRoutes(children, [])
               }
-            : {}),
+            : {})
         })
       })
     }
@@ -121,8 +121,8 @@ const extractRoutes = (menuRoutes: any) => {
 }
 
 const { menuItems, breadcrumbNameMap } = extractMenuItems(menuRoutes[1].children)
-console.log("menuItems", menuItems, "breadcrumbNameMap", breadcrumbNameMap)
+console.log('menuItems', menuItems, 'breadcrumbNameMap', breadcrumbNameMap)
 const routes = extractRoutes(menuRoutes)
-console.log("routes", routes)
+console.log('routes', routes)
 
 export { routes, menuItems, breadcrumbNameMap }

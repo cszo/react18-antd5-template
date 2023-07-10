@@ -3,7 +3,9 @@
 致力打造成一个基于新版主流技术的React中后台模版
 
 ## 技术栈
+
 `react18`、`vite4`、`antd5`、`typescript`、`react-router-dom6`
+
 - [React-Router](https://reactrouter.com/en/main)
 - [ReactJS](https://react.dev/)
 - [Vite](https://vitejs.dev)
@@ -13,6 +15,7 @@
 - [Prettier](https://prettier.io)
 
 ## 目录结构
+
 ```markdown
 react18-antd5-template
 
@@ -29,16 +32,19 @@ react18-antd5-template
 ### 开始
 
 - 安装依赖
+
    ```bash
    yarn
    ```
 
 - 本地启动项目
+
    ```bash
    yarn dev
    ```
 
 - 生产环境打包
+
   ```bash
   yarn build
   ```

@@ -3,5 +3,5 @@ export default function Phone() {
     <div>
       <h2>phone</h2>
     </div>
-  );
+  )
 }
