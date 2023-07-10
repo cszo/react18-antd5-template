@@ -5,6 +5,30 @@ import lazyLoad from './lazy-load'
 import NotFound from './not-found'
 import NotAuth from './not-auth'
 
+type MenuRoute = {
+  name?: string
+  path: string
+  icon?: React.ReactNode
+  auth?: boolean
+  hideInMenu?: boolean
+  index?: boolean
+  element?: React.ReactNode
+  children?: MenuRoute[]
+}
+
+type RoutesType = {
+  path: string
+  element?: React.ReactNode
+  children?: RoutesType[]
+}
+
+type MenuItem = {
+  key: string
+  icon?: React.ReactNode
+  label: string | React.ReactNode
+  children?: MenuItem[]
+}
+
 const menuRoutes = [
   {
     path: '/',
@@ -71,14 +95,14 @@ const menuRoutes = [
 
 // extract MenuItems for antd Menu
 // extract breadcrumbNameMap for antd Breadcrumb
-const extractMenuItems = (menuRoutes: any) => {
-  const breadcrumbNameMap: any = []
+const extractMenuItems = (menuRoutes: MenuRoute[]) => {
+  const breadcrumbNameMap: Record<string, string> = {}
 
-  const recurExtractMenuItems = (menuRoutes: any, menuItems: any[]) => {
+  const recurExtractMenuItems = (menuRoutes: MenuRoute[], menuItems: MenuItem[]) => {
     if (menuRoutes?.length) {
-      menuRoutes.forEach((item: any) => {
+      menuRoutes.forEach((item: MenuRoute) => {
         const { name, path, icon, hideInMenu, children } = item
-        breadcrumbNameMap[path] = name
+        breadcrumbNameMap[path] = name as string
         if (!hideInMenu) {
           menuItems.push({
             key: path,
@@ -100,10 +124,10 @@ const extractMenuItems = (menuRoutes: any) => {
 }
 
 // extract routes for react-router6
-const extractRoutes = (menuRoutes: any) => {
-  const recurExtractRoutes = (menuRoutes: any, routes: any[]) => {
+const extractRoutes = (menuRoutes: MenuRoute[]) => {
+  const recurExtractRoutes = (menuRoutes: MenuRoute[], routes: RoutesType[]) => {
     if (menuRoutes?.length) {
-      menuRoutes.forEach((item: any) => {
+      menuRoutes.forEach((item: MenuRoute) => {
         const { path, auth, element, children } = item
         routes.push({
           // index,
@@ -122,7 +146,7 @@ const extractRoutes = (menuRoutes: any) => {
   return recurExtractRoutes(menuRoutes, [])
 }
 
-const { menuItems, breadcrumbNameMap } = extractMenuItems(menuRoutes[1].children)
+const { menuItems, breadcrumbNameMap } = extractMenuItems(menuRoutes[1]?.children as MenuRoute[])
 console.log('menuItems', menuItems, 'breadcrumbNameMap', breadcrumbNameMap)
 const routes = extractRoutes(menuRoutes)
 console.log('routes', routes)

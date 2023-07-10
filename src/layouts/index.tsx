@@ -16,9 +16,9 @@ export default function AdminLayout() {
   const selectedKeys = [location.pathname]
 
   // 点击菜单 收起另外菜单
-  const onOpenChange = (openKeys: any) => {
+  const onOpenChange = (openKeys: string[]) => {
     const customOpenKeys = openKeys.reduceRight(
-      (acc: any, item: any) => [
+      (acc: string[], item: string) => [
         ...(acc[acc.length - 1]?.startsWith(item) || !acc.length ? [item] : []),
         ...acc
       ],
