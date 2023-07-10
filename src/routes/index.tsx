@@ -2,7 +2,8 @@ import { AppstoreOutlined, DesktopOutlined, MailOutlined } from '@ant-design/ico
 import { lazy } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import lazyLoad from './lazy-load'
-import NotFound from './404'
+import NotFound from './not-found'
+import NotAuth from './not-auth'
 
 const menuRoutes = [
   {
@@ -32,6 +33,7 @@ const menuRoutes = [
           },
           {
             name: '详情',
+            auth: false,
             path: '/order/detail',
             hideInMenu: true,
             element: lazyLoad(lazy(() => import('@/pages/order/detail')))
@@ -102,11 +104,11 @@ const extractRoutes = (menuRoutes: any) => {
   const recurExtractRoutes = (menuRoutes: any, routes: any[]) => {
     if (menuRoutes?.length) {
       menuRoutes.forEach((item: any) => {
-        const { path, element, children } = item
+        const { path, auth, element, children } = item
         routes.push({
           // index,
           path,
-          element,
+          element: auth !== false ? element : <NotAuth />,
           ...(children?.length
             ? {
                 children: recurExtractRoutes(children, [])
