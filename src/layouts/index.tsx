@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import { Breadcrumb, Layout, Menu, theme, Button } from 'antd'
-import { Link, useLocation, Outlet } from 'react-router-dom'
+import { Link, useLocation, Outlet, useMatches } from 'react-router-dom'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 
 import { menuItems, breadcrumbNameMap } from '../routes'
@@ -9,23 +9,14 @@ const { Content, Sider } = Layout
 
 export default function AdminLayout() {
   const location = useLocation()
+  const matches = useMatches()
   const [collapsed, setCollapsed] = useState(false)
-  // openKeys不能只根据location计算 还要判断层级 否则无法在刷新的时候确定展开菜单
-  const [openKeys, setOpenKeys] = useState<string[]>([])
   // selectedKeys可根据location计算出来(location.pathname即menu key)
   const selectedKeys = [location.pathname]
 
-  // 点击菜单 收起另外菜单
-  const onOpenChange = (openKeys: string[]) => {
-    const customOpenKeys = openKeys.reduceRight(
-      (acc: string[], item: string) => [
-        ...(acc[acc.length - 1]?.startsWith(item) || !acc.length ? [item] : []),
-        ...acc
-      ],
-      []
-    )
-    setOpenKeys(customOpenKeys)
-  }
+  const defaultOpenKeys = useMemo(() => {
+    return matches.slice(1, -1).map((item) => item.pathname)
+  }, [matches])
 
   const toggleCollapsed = () => setCollapsed(!collapsed)
 
@@ -43,7 +34,7 @@ export default function AdminLayout() {
     }
   })
 
-  console.log('breadcrumbItems', breadcrumbItems)
+  // console.log('breadcrumbItems', breadcrumbItems)
 
   return (
     <Layout style={{ minHeight: '100%' }}>
@@ -55,8 +46,7 @@ export default function AdminLayout() {
           style={{ height: 'calc(100vh - 40px)' }}
           items={menuItems}
           selectedKeys={selectedKeys}
-          openKeys={openKeys}
-          onOpenChange={(openKeys) => onOpenChange(openKeys)}
+          defaultOpenKeys={defaultOpenKeys}
         />
       </Sider>
       <Layout>
