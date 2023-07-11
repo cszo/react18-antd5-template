@@ -5,7 +5,7 @@
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "dev": "vite --host",
-    "build": "tsc && vite build",
+    "build:prod": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint 'src/**/*.{ts,tsx}'"
   },
@@ -26,7 +26,6 @@
   "devDependencies": {
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
-    "@rollup/plugin-replace": "^5.0.2",
     "@types/node": "18.x",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",

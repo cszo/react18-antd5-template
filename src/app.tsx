@@ -1,6 +1,10 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter, createHashRouter } from 'react-router-dom'
 import { routes } from './routes'
 
 export default function App() {
-  return <RouterProvider router={createBrowserRouter(routes)} />
+  const createdRoutes =
+    import.meta.env.VITE_ROUTER_HISTORY === 'hash'
+      ? createHashRouter(routes)
+      : createBrowserRouter(routes)
+  return <RouterProvider router={createdRoutes} />
 }

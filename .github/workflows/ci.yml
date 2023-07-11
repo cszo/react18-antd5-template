@@ -30,10 +30,12 @@ jobs:
       # ${{ runner.os }}-yarn-
       # - name: Install dependencies
       #   run: yarn --prefer-offline
+      # https://github.com/pnpm/action-setup
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         id: pnpm-install
         with:
+          # https://github.com/pnpm/pnpm/issues/6649#issuecomment-1579588911
           version: 8
           run_install: false
 

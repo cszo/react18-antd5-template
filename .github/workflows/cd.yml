@@ -1,4 +1,4 @@
-name: Build And Deploy Template
+name: Build And Deploy
 
 on:
   push:
@@ -25,11 +25,11 @@ jobs:
           version: latest
 
       - name: Build
-        run: pnpm install && pnpm build
+        run: pnpm install && pnpm build:prod
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
-          ACCESS_TOKEN: ${{ secrets.REACT18_ANTD5_TEMPLATE }}
+          GITHUB_TOKEN: ${{ secrets.REACT18_ANTD5 }}
           BRANCH: gh-pages
           FOLDER: dist
