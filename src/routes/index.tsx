@@ -16,9 +16,7 @@ type MenuRoute = {
   children?: MenuRoute[]
 }
 
-type RoutesType = {
-  path: string
-  element?: React.ReactNode
+type RoutesType = Pick<MenuRoute, 'path' | 'element'> & {
   children?: RoutesType[]
 }
 
@@ -29,7 +27,9 @@ type MenuItem = {
   children?: MenuItem[]
 }
 
-const menuRoutes = [
+type BreadcrumbMap<T extends MenuRoute> = Record<T['path'], T['name']>
+
+const menuRoutes: MenuRoute[] = [
   {
     path: '/',
     element: <Navigate replace to="/home" />
@@ -95,8 +95,8 @@ const menuRoutes = [
 
 // extract MenuItems for antd Menu
 // extract breadcrumbNameMap for antd Breadcrumb
-const extractMenuItems = (menuRoutes: MenuRoute[]) => {
-  const breadcrumbNameMap: Record<string, string> = {}
+const extractMenuItems = (menuRoutes: MenuRoute[] = []) => {
+  const breadcrumbNameMap: BreadcrumbMap<MenuRoute> = {}
 
   const recurExtractMenuItems = (menuRoutes: MenuRoute[], menuItems: MenuItem[]) => {
     if (menuRoutes?.length) {
@@ -146,7 +146,7 @@ const extractRoutes = (menuRoutes: MenuRoute[]) => {
   return recurExtractRoutes(menuRoutes, [])
 }
 
-const { menuItems, breadcrumbNameMap } = extractMenuItems(menuRoutes[1]?.children as MenuRoute[])
+const { menuItems, breadcrumbNameMap } = extractMenuItems(menuRoutes[1]?.children)
 console.log('menuItems', menuItems, 'breadcrumbNameMap', breadcrumbNameMap)
 const routes = extractRoutes(menuRoutes)
 console.log('routes', routes)
