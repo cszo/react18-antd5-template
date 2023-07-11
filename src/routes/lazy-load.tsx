@@ -1,4 +1,5 @@
-import { Suspense, ComponentType } from 'react'
+import { Suspense } from 'react'
+import type { ComponentType } from 'react'
 import { Spin } from 'antd'
 import { LoadingOutlined } from '@ant-design/icons'
 
