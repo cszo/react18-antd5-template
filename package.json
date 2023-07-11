@@ -2,7 +2,7 @@
   "name": "react18-antd5-template",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "tsc && vite build",
     "serve": "vite preview",
     "lint": "eslint 'src/**/*.{ts,tsx}'"
@@ -14,6 +14,7 @@
     "react-router-dom": "^6.8.0"
   },
   "devDependencies": {
+    "@ant-design/icons": "^5.1.4",
     "@rollup/plugin-replace": "^5.0.2",
     "@types/node": "18.x",
     "@types/react": "^18.0.27",
@@ -25,6 +26,7 @@
     "eslint-plugin-react": "^7.32.2",
     "prettier": "^3.0.0",
     "typescript": "^4.9.5",
+    "unocss": "^0.53.5",
     "vite": "^4.0.4"
   }
 }
