@@ -1,0 +1,1 @@
+import{ag as e}from"./index-e3d49247.js";function r(){return e("div",{children:e("h2",{children:"phone"})})}export{r as default};
