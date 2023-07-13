@@ -1,17 +1,30 @@
-import { useState, useMemo } from 'react'
-import { Breadcrumb, Layout, Menu, theme, Button } from 'antd'
+import { useState, useMemo, Suspense } from 'react'
+import { Breadcrumb, Layout, Row, Menu, Button, Spin } from 'antd'
 import { Link, useLocation, Outlet, useMatches } from 'react-router-dom'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+
+import { useEmotionCss } from '../hooks'
 
 import { menuItems, breadcrumbNameMap } from '../routes'
 
 const { Content, Sider } = Layout
 
+const Loading = () => (
+  <Spin
+    size="large"
+    style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%,-50%)'
+    }}
+  />
+)
+
 export default function AdminLayout() {
   const location = useLocation()
   const matches = useMatches()
   const [collapsed, setCollapsed] = useState(false)
-  // selectedKeys可根据location计算出来(location.pathname即menu key)
   const selectedKeys = [location.pathname]
 
   const defaultOpenKeys = useMemo(() => {
@@ -20,11 +33,6 @@ export default function AdminLayout() {
 
   const toggleCollapsed = () => setCollapsed(!collapsed)
 
-  const {
-    token: { colorBgContainer }
-  } = theme.useToken()
-
-  // 面包屑处理
   const pathSnippets = location.pathname.split('/').filter((i) => i)
   const breadcrumbItems = pathSnippets.map((_, index) => {
     const url = `/${pathSnippets.slice(0, index + 1).join('/')}`
@@ -34,12 +42,24 @@ export default function AdminLayout() {
     }
   })
 
-  // console.log('breadcrumbItems', breadcrumbItems)
+  const logoTextClassName = useEmotionCss(({ token }) => ({
+    color: token.colorWhite,
+    lineHeight: '40px'
+  }))
+
+  const layoutContentClassName = useEmotionCss(({ token }) => ({
+    background: token.colorBgContainer,
+    marginLeft: 12,
+    padding: 12,
+    position: 'relative'
+  }))
 
   return (
     <Layout style={{ minHeight: '100%' }}>
       <Sider width={200} collapsed={collapsed}>
-        <div style={{ textAlign: 'center', lineHeight: '40px', color: '#ffffff' }}>XX管理系统</div>
+        <Row justify="center" className={logoTextClassName}>
+          XX管理系统
+        </Row>
         <Menu
           theme="dark"
           mode="inline"
@@ -50,20 +70,16 @@ export default function AdminLayout() {
         />
       </Sider>
       <Layout>
-        <div style={{ display: 'flex', alignItems: 'center', height: 40 }}>
+        <Row align="middle" style={{ height: 40 }}>
           <Button type="link" onClick={toggleCollapsed}>
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </Button>
           <Breadcrumb items={breadcrumbItems} />
-        </div>
-        <Content
-          style={{
-            marginLeft: 12,
-            padding: 12,
-            background: colorBgContainer
-          }}
-        >
-          <Outlet />
+        </Row>
+        <Content className={layoutContentClassName}>
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
         </Content>
       </Layout>
     </Layout>

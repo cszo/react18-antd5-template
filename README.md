@@ -1,6 +1,7 @@
 # react18-antd5-template
 
 致力打造成一个基于新版主流技术的React中后台模版
+[预览地址](https://cszo.github.io/react18-antd5-template)
 
 ## 技术栈
 
@@ -13,6 +14,7 @@
 - [Antd5](https://ant.design)
 - [ESLint](https://eslint.org)
 - [Prettier](https://prettier.io)
+- [emotion](https://emotion.sh/docs/introduction)
 
 ## 目录结构
 
@@ -20,13 +22,14 @@
 react18-antd5-template
 
 ├─src
-| ├─layouts // 布局组件
-| ├─pages // 典型页面
-| ├─routes // 路由
-| ├─hooks // 公共 hooks
-| ├─components // 公共业务组件
-├─tsconfig.json // ts配置
-├─vite.config.ts // vite配置
+| ├─components      // 公共组件
+| ├─hooks           // 公共 hooks
+| ├─layouts         // 页面布局
+| ├─pages           // 典型页面
+| ├─routes          // 路由配置
+| ├─utils           // 工具函数
+├─tsconfig.json     // ts配置
+├─vite.config.ts    // vite配置
 ```
 
 ### 开始
@@ -34,19 +37,19 @@ react18-antd5-template
 - 安装依赖
 
    ```bash
-   yarn
+   pnpm install
    ```
 
 - 本地启动项目
 
    ```bash
-   yarn dev
+   pnpm dev
    ```
 
 - 生产环境打包
 
   ```bash
-  yarn build
+  pnpm build:prod
   ```
 
 ### 提交格式
