@@ -1,11 +1,23 @@
-import { useState, useMemo } from 'react'
-import { Breadcrumb, Layout, Menu, theme, Button } from 'antd'
+import { useState, useMemo, Suspense } from 'react'
+import { Breadcrumb, Layout, Row, Menu, theme, Button, Spin } from 'antd'
 import { Link, useLocation, Outlet, useMatches } from 'react-router-dom'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 
 import { menuItems, breadcrumbNameMap } from '../routes'
 
 const { Content, Sider } = Layout
+
+const Loading = () => (
+  <Spin
+    size="large"
+    style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%,-50%)'
+    }}
+  />
+)
 
 export default function AdminLayout() {
   const location = useLocation()
@@ -34,8 +46,6 @@ export default function AdminLayout() {
     }
   })
 
-  // console.log('breadcrumbItems', breadcrumbItems)
-
   return (
     <Layout style={{ minHeight: '100%' }}>
       <Sider width={200} collapsed={collapsed}>
@@ -50,20 +60,23 @@ export default function AdminLayout() {
         />
       </Sider>
       <Layout>
-        <div style={{ display: 'flex', alignItems: 'center', height: 40 }}>
+        <Row align="middle" style={{ height: 40 }}>
           <Button type="link" onClick={toggleCollapsed}>
             {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           </Button>
           <Breadcrumb items={breadcrumbItems} />
-        </div>
+        </Row>
         <Content
           style={{
             marginLeft: 12,
             padding: 12,
-            background: colorBgContainer
+            background: colorBgContainer,
+            position: 'relative'
           }}
         >
-          <Outlet />
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
         </Content>
       </Layout>
     </Layout>
