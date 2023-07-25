@@ -1,35 +1,15 @@
 import { AppstoreOutlined, DesktopOutlined, MailOutlined } from '@ant-design/icons'
 import { lazy } from 'react'
 import { Link, Navigate } from 'react-router-dom'
+
 import AdminLayout from '../layouts'
 import NotFound from './not-found'
 import NotAuth from './not-auth'
 
-type MenuRoute = {
-  name?: string
-  path: string
-  icon?: React.ReactNode
-  auth?: boolean
-  hideInMenu?: boolean
-  index?: boolean
-  element?: React.ReactNode
-  children?: MenuRoute[]
-}
-
-type RoutesType = Pick<MenuRoute, 'path' | 'element'> & {
-  children?: RoutesType[]
-}
-
-type MenuItem = {
-  key: string
-  icon?: React.ReactNode
-  label: string | React.ReactNode
-  children?: MenuItem[]
-}
-
-type BreadcrumbMap<T extends MenuRoute> = Record<T['path'], T['name']>
+import { MenuRoute, RoutesType, MenuItem, BreadcrumbMap } from './interface'
 
 // https://legacy.reactjs.org/docs/code-splitting.html#route-based-code-splitting
+const Login = lazy(() => import('@/pages/login'))
 const Home = lazy(() => import('@/pages/home'))
 const OrderList = lazy(() => import('@/pages/order/list'))
 const OrderDetail = lazy(() => import('@/pages/order/detail'))
@@ -96,7 +76,14 @@ const menuRoutes: MenuRoute[] = [
       }
     ]
   },
-  { path: '*', element: <NotFound /> }
+  {
+    path: '/login',
+    element: <Login />
+  },
+  {
+    path: '*',
+    element: <NotFound />
+  }
 ]
 
 // extract MenuItems for antd Menu

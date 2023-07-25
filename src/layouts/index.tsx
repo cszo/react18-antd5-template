@@ -58,7 +58,7 @@ export default function AdminLayout() {
     <Layout style={{ minHeight: '100%' }}>
       <Sider width={200} collapsed={collapsed}>
         <Row justify="center" className={logoTextClassName}>
-          XX管理系统
+          {collapsed ? 'React' : 'React Admin'}
         </Row>
         <Menu
           theme="dark"
