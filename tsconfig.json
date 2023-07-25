@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["src/*"]
     },
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
@@ -19,5 +19,5 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["./src"]
+  "include": ["src"]
 }
