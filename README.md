@@ -1,7 +1,6 @@
 # react18-antd5-template
 
-致力打造成一个基于新版主流技术的React中后台模版
-[预览地址](https://cszo.github.io/react18-antd5-template)
+致力打造成一个基于新版主流技术的React中后台模版 [预览地址](https://cszo.github.io/react18-antd5-template)
 
 ## 技术栈
 

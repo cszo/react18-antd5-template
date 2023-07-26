@@ -10,7 +10,8 @@ import {
   WeiboOutlined
 } from '@ant-design/icons'
 import { LoginForm, ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
-// import { useLoginStore } from '@stores/index'
+
+import { login } from '@/routes/auth'
 
 type LoginType = 'phone' | 'account'
 
@@ -32,22 +33,15 @@ const iconStyles: CSSProperties = {
   cursor: 'pointer'
 }
 
-function delay(ms: number) {
-  return new Promise((resolve) => setTimeout(resolve, ms))
-}
-
 const Login = () => {
   const [loginType, setLoginType] = useState<LoginType>('account')
-  // const { setUserInfo } = useLoginStore()
   const navigate = useNavigate()
 
-  const onFinish = (values: any) => {
-    return delay(1000).then(() => {
-      message.success('登录成功🎉🎉🎉')
-      // setUserInfo(values)
-      // navigate('/', { replace: true })
-      navigate('/')
-    })
+  const onFinish = async (values: any) => {
+    console.log(values)
+    await login(values)
+    message.success('登录成功🎉🎉🎉')
+    navigate('/', { replace: true })
   }
 
   return (
@@ -89,8 +83,8 @@ const Login = () => {
           activeKey={loginType}
           onChange={(activeKey) => setLoginType(activeKey as LoginType)}
         >
-          <Tabs.TabPane key={'account'} tab={'账号密码登录'} />
-          <Tabs.TabPane key={'phone'} tab={'手机号登录'} />
+          <Tabs.TabPane key="account" tab="账号密码登录" />
+          <Tabs.TabPane key="phone" tab="手机号登录" />
         </Tabs>
         {loginType === 'account' && (
           <>
@@ -98,18 +92,18 @@ const Login = () => {
               name="username"
               fieldProps={{
                 size: 'large',
-                prefix: <UserOutlined className={'prefixIcon'} />
+                prefix: <UserOutlined className="prefixIcon" />
               }}
-              placeholder={'用户名: admin or user'}
+              placeholder="用户名: admin or user"
               rules={[{ required: true, message: '请输入用户名!' }]}
             />
             <ProFormText.Password
               name="password"
               fieldProps={{
                 size: 'large',
-                prefix: <LockOutlined className={'prefixIcon'} />
+                prefix: <LockOutlined className="prefixIcon" />
               }}
-              placeholder={'密码: 123456'}
+              placeholder="密码: 123456"
               rules={[{ required: true, message: '请输入密码！' }]}
             />
           </>
@@ -119,10 +113,10 @@ const Login = () => {
             <ProFormText
               fieldProps={{
                 size: 'large',
-                prefix: <MobileOutlined className={'prefixIcon'} />
+                prefix: <MobileOutlined className="prefixIcon" />
               }}
               name="mobile"
-              placeholder={'手机号'}
+              placeholder="手机号"
               rules={[
                 { required: true, message: '请输入手机号！' },
                 { pattern: /^1\d{10}$/, message: '手机号格式错误！' }
@@ -131,13 +125,13 @@ const Login = () => {
             <ProFormCaptcha
               fieldProps={{
                 size: 'large',
-                prefix: <LockOutlined className={'prefixIcon'} />
+                prefix: <LockOutlined className="prefixIcon" />
               }}
               captchaProps={{
                 size: 'large'
               }}
-              placeholder={'请输入验证码'}
-              captchaTextRender={(timing: any, count: any) => {
+              placeholder="请输入验证码"
+              captchaTextRender={(timing: boolean, count: number) => {
                 if (timing) return `${count} ${'获取验证码'}`
                 return '获取验证码'
               }}

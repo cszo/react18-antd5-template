@@ -26,7 +26,13 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
         { find: '@components', replacement: path.resolve(__dirname, './src/components') },
         { find: '@utils', replacement: path.resolve(__dirname, './src/utils') }
       ]
-    }
+    },
+    css: {
+      // https://vitejs.dev/config/shared-options.html#css-modules
+      modules: {
+        localsConvention: 'camelCase', 
+      },
+    },
   }
 }
 

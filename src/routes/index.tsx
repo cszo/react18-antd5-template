@@ -2,6 +2,9 @@ import { AppstoreOutlined, DesktopOutlined, MailOutlined } from '@ant-design/ico
 import { lazy } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 
+import LoginPage from '@/pages/login'
+import { checkAuth } from './auth'
+
 import AdminLayout from '../layouts'
 import NotFound from './not-found'
 import NotAuth from './not-auth'
@@ -9,7 +12,6 @@ import NotAuth from './not-auth'
 import { MenuRoute, RoutesType, MenuItem, BreadcrumbMap } from './interface'
 
 // https://legacy.reactjs.org/docs/code-splitting.html#route-based-code-splitting
-const Login = lazy(() => import('@/pages/login'))
 const Home = lazy(() => import('@/pages/home'))
 const OrderList = lazy(() => import('@/pages/order/list'))
 const OrderDetail = lazy(() => import('@/pages/order/detail'))
@@ -23,6 +25,7 @@ const menuRoutes: MenuRoute[] = [
   },
   {
     path: '/',
+    loader: checkAuth,
     element: <AdminLayout />, // layout应该不需要lazyload
     children: [
       {
@@ -78,7 +81,7 @@ const menuRoutes: MenuRoute[] = [
   },
   {
     path: '/login',
-    element: <Login />
+    element: <LoginPage />
   },
   {
     path: '*',
@@ -121,9 +124,10 @@ const extractRoutes = (menuRoutes: MenuRoute[]) => {
   const recurExtractRoutes = (menuRoutes: MenuRoute[], routes: RoutesType[]) => {
     if (menuRoutes?.length) {
       menuRoutes.forEach((item: MenuRoute) => {
-        const { path, auth, element, children } = item
+        const { path, auth, element, loader, children } = item
         routes.push({
           // index,
+          loader,
           path,
           element: auth !== false ? element : <NotAuth />,
           ...(children?.length
