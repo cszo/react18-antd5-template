@@ -1,6 +1,6 @@
 import { useState, useMemo, Suspense } from 'react'
 import { Breadcrumb, Layout, Row, Menu, Button, Spin } from 'antd'
-import { Link, useLocation, Outlet, useMatches } from 'react-router-dom'
+import { Link, useLocation, Outlet, useMatches, Navigate, useLoaderData } from 'react-router-dom'
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 
 import { useEmotionCss } from '../hooks'
@@ -22,10 +22,17 @@ const Loading = () => (
 )
 
 export default function AdminLayout() {
+  const userInfo = useLoaderData()
+  console.log('useLoaderData', userInfo)
+
   const location = useLocation()
   const matches = useMatches()
   const [collapsed, setCollapsed] = useState(false)
   const selectedKeys = [location.pathname]
+
+  if (!userInfo) {
+    return <Navigate replace to="/login" />
+  }
 
   const defaultOpenKeys = useMemo(() => {
     return matches.slice(1, -1).map((item) => item.pathname)

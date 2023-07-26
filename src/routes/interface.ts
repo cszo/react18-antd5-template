@@ -1,6 +1,9 @@
+import { LoaderFunction } from 'react-router-dom'
+
 export type MenuRoute = {
   name?: string
   path: string
+  loader?: LoaderFunction
   icon?: React.ReactNode
   auth?: boolean
   hideInMenu?: boolean
@@ -9,7 +12,7 @@ export type MenuRoute = {
   children?: MenuRoute[]
 }
 
-export type RoutesType = Pick<MenuRoute, 'path' | 'element'> & {
+export type RoutesType = Pick<MenuRoute, 'path' | 'element' | 'loader'> & {
   children?: RoutesType[]
 }
 
