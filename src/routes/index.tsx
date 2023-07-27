@@ -81,6 +81,7 @@ const menuRoutes: MenuRoute[] = [
   },
   {
     path: '/login',
+    loader: checkAuth,
     element: <LoginPage />
   },
   {
