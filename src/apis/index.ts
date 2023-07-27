@@ -78,6 +78,6 @@ export function signin({ username, password }: LoginInfo): Promise<LoginResult> 
 
 export function signout(apiContext = {}) {
   return new Promise((resolve) => {
-    setTimeout(resolve, 2000)
+    setTimeout(resolve, 1000)
   })
 }

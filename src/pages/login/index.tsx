@@ -1,5 +1,5 @@
 import { useState, CSSProperties } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLoaderData, Navigate } from 'react-router-dom'
 import { Divider, message, Space, Tabs } from 'antd'
 import {
   AlipayOutlined,
@@ -12,6 +12,7 @@ import {
 import { LoginForm, ProFormCaptcha, ProFormCheckbox, ProFormText } from '@ant-design/pro-components'
 
 import { login } from '@/routes/auth'
+import { type LoginInfo } from '@/apis'
 
 type LoginType = 'phone' | 'account'
 
@@ -35,12 +36,19 @@ const iconStyles: CSSProperties = {
 
 const Login = () => {
   const [loginType, setLoginType] = useState<LoginType>('account')
+  const userInfo = useLoaderData()
   const navigate = useNavigate()
 
-  const onFinish = async (values: any) => {
+  if (userInfo) {
+    return <Navigate replace to="/home" />
+  }
+
+  const onFinish = async (values: LoginInfo) => {
     console.log(values)
-    await login(values)
-    message.success('登录成功🎉🎉🎉')
+    const {
+      user: { username }
+    } = await login(values)
+    message.success(`登录成功🎉🎉🎉 欢迎${username}👏🏻👏🏻👏🏻`)
     navigate('/', { replace: true })
   }
 
