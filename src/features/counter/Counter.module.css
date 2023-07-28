@@ -50,6 +50,7 @@
 }
 
 .async-button {
+  /* vscode settings.json file add "css.lint.validProperties": ["composes"] */
   composes: button;
   position: relative;
 }

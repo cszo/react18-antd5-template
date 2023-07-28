@@ -1,13 +1,12 @@
-import { AppstoreOutlined, DesktopOutlined, MailOutlined } from '@ant-design/icons'
 import { lazy } from 'react'
 import { Link, Navigate } from 'react-router-dom'
+import { AppstoreOutlined, DesktopOutlined, MailOutlined, TableOutlined } from '@ant-design/icons'
 
 import LoginPage from '@/pages/login'
-import { checkAuth } from './auth'
+import AdminLayout from '@/layouts'
 
-import AdminLayout from '../layouts'
-import NotFound from './not-found'
-import NotAuth from './not-auth'
+import { NotFound, NotAuth } from './exception'
+import { checkAuth } from './auth'
 
 import { MenuRoute, RoutesType, MenuItem, BreadcrumbMap } from './interface'
 
@@ -18,6 +17,11 @@ const OrderDetail = lazy(() => import('@/pages/order/detail'))
 const Phone = lazy(() => import('@/pages/product/phone'))
 const Gold = lazy(() => import('@/pages/product/luxury/gold'))
 
+// table
+const TablePro = lazy(() => import('@/pages/table/table-pro'))
+const TableAntd = lazy(() => import('@/pages/table/table-antd'))
+const TableAhook = lazy(() => import('@/pages/table/table-ahook'))
+
 const menuRoutes: MenuRoute[] = [
   {
     path: '/',
@@ -26,7 +30,7 @@ const menuRoutes: MenuRoute[] = [
   {
     path: '/',
     loader: checkAuth,
-    element: <AdminLayout />, // layout应该不需要lazyload
+    element: <AdminLayout />, // layout应该不需要lazyload 后续考虑SSR?
     children: [
       {
         name: '首页',
@@ -76,6 +80,28 @@ const menuRoutes: MenuRoute[] = [
             ]
           }
         ]
+      },
+      {
+        name: '表格',
+        path: '/table',
+        icon: <TableOutlined />,
+        children: [
+          {
+            name: 'table-pro',
+            path: '/table/table-pro',
+            element: <TablePro />
+          },
+          {
+            name: 'table-antd',
+            path: '/table/table-antd',
+            element: <TableAntd />
+          },
+          {
+            name: 'table-ahook',
+            path: '/table/table-ahook',
+            element: <TableAhook />
+          }
+        ]
       }
     ]
   },
@@ -120,7 +146,7 @@ const extractMenuItems = (menuRoutes: MenuRoute[] = []) => {
   return { menuItems, breadcrumbNameMap }
 }
 
-// extract routes for react-router6
+// extract routes for react-router-dom6
 const extractRoutes = (menuRoutes: MenuRoute[]) => {
   const recurExtractRoutes = (menuRoutes: MenuRoute[], routes: RoutesType[]) => {
     if (menuRoutes?.length) {
