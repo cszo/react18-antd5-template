@@ -11,16 +11,17 @@ import { checkAuth } from './auth'
 import { MenuRoute, RoutesType, MenuItem, BreadcrumbMap } from './interface'
 
 // https://legacy.reactjs.org/docs/code-splitting.html#route-based-code-splitting
-const Home = lazy(() => import('@/pages/home'))
-const OrderList = lazy(() => import('@/pages/order/list'))
-const OrderDetail = lazy(() => import('@/pages/order/detail'))
-const Phone = lazy(() => import('@/pages/product/phone'))
-const Gold = lazy(() => import('@/pages/product/luxury/gold'))
-
+// home
+const Dashboard = lazy(() => import('@/pages/dashboard'))
 // table
 const TablePro = lazy(() => import('@/pages/table/table-pro'))
 const TableAntd = lazy(() => import('@/pages/table/table-antd'))
 const TableAhook = lazy(() => import('@/pages/table/table-ahook'))
+// playground
+const Playground = lazy(() => import('@/pages/playground'))
+// product
+const Phone = lazy(() => import('@/pages/product/phone'))
+const Gold = lazy(() => import('@/pages/product/luxury/gold'))
 
 const menuRoutes: MenuRoute[] = [
   {
@@ -36,50 +37,7 @@ const menuRoutes: MenuRoute[] = [
         name: '首页',
         path: '/home',
         icon: <DesktopOutlined />,
-        element: <Home />
-      },
-      {
-        name: '订单',
-        path: '/order',
-        icon: <MailOutlined />,
-        children: [
-          {
-            name: '列表',
-            path: '/order/list',
-            element: <OrderList />
-          },
-          {
-            name: '详情',
-            auth: false,
-            path: '/order/detail',
-            hideInMenu: true,
-            element: <OrderDetail />
-          }
-        ]
-      },
-      {
-        name: '物品',
-        path: '/product',
-        icon: <AppstoreOutlined />,
-        children: [
-          {
-            index: true,
-            name: '手机',
-            path: '/product/phone',
-            element: <Phone />
-          },
-          {
-            name: '奢侈品',
-            path: '/product/scp',
-            children: [
-              {
-                name: '黄金',
-                path: '/product/scp/gold',
-                element: <Gold />
-              }
-            ]
-          }
-        ]
+        element: <Dashboard />
       },
       {
         name: '表格',
@@ -100,6 +58,44 @@ const menuRoutes: MenuRoute[] = [
             name: 'table-ahook',
             path: '/table/table-ahook',
             element: <TableAhook />
+          }
+        ]
+      },
+      {
+        name: '演练场',
+        path: '/playground',
+        icon: <MailOutlined />,
+        children: [
+          {
+            name: '路由测试和redux',
+            path: '/playground',
+            // index: true,
+            element: <Playground />
+          }
+        ]
+      },
+      {
+        name: '物品',
+        path: '/product',
+        icon: <AppstoreOutlined />,
+        children: [
+          {
+            index: true,
+            name: '手机',
+            auth: false,
+            path: '/product/phone',
+            element: <Phone />
+          },
+          {
+            name: '奢侈品',
+            path: '/product/scp',
+            children: [
+              {
+                name: '黄金',
+                path: '/product/scp/gold',
+                element: <Gold />
+              }
+            ]
           }
         ]
       }
