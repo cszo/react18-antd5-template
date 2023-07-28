@@ -1,6 +1,6 @@
 import { signin, signout, getCurrentUser, type LoginInfo } from '@/apis'
 
-const TOKEN_KEY = '_t4gd-*-'
+const TOKEN_KEY = '_csz*'
 
 function isAuthenticated() {
   return !!getToken()
