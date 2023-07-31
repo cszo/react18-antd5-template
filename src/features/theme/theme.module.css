@@ -1,0 +1,14 @@
+.skin {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.skin-input {
+  width: 32px;
+  position: absolute;
+  left: 0;
+  z-index: 1;
+  opacity: 0;
+  cursor: pointer;
+}
