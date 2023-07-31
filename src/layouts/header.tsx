@@ -1,13 +1,14 @@
-import { Breadcrumb, Row, Button, Dropdown, MenuProps } from 'antd'
+import { Breadcrumb, Row, Space, Button, Dropdown, MenuProps } from 'antd'
 import { Link, useLocation, useNavigate, Navigate, useLoaderData } from 'react-router-dom'
 import { LogoutOutlined, SettingOutlined, UserOutlined } from '@ant-design/icons'
+
+import Theme from '@/features/theme/theme'
 
 import { breadcrumbNameMap } from '../routes'
 import { logout } from '../routes/auth'
 
 export default function AdminLayout() {
   const userInfo: any = useLoaderData()
-  console.log('userInfo', userInfo)
 
   const location = useLocation()
   const navigate = useNavigate()
@@ -73,7 +74,8 @@ export default function AdminLayout() {
       <Row align="middle">
         <Breadcrumb items={breadcrumbItems} />
       </Row>
-      <Row align="middle" style={{ paddingRight: 16 }}>
+      <Space size={12}>
+        <Theme />
         <Dropdown menu={{ items }} placement="bottom">
           <Row align="middle">
             <img
@@ -83,7 +85,7 @@ export default function AdminLayout() {
             <span style={{ marginLeft: 8, color: 'gray' }}>{userInfo?.user?.username}</span>
           </Row>
         </Dropdown>
-      </Row>
+      </Space>
     </Row>
   )
 }
