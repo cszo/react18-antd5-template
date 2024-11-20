@@ -23,6 +23,9 @@ const Playground = lazy(() => import('@/pages/playground'))
 const Phone = lazy(() => import('@/pages/product/phone'))
 const Gold = lazy(() => import('@/pages/product/luxury/gold'))
 
+// drag-form
+const DragForm = lazy(() => import('@/pages/drag-form'))
+
 const menuRoutes: MenuRoute[] = [
   {
     path: '/',
@@ -98,6 +101,12 @@ const menuRoutes: MenuRoute[] = [
             ]
           }
         ]
+      },
+      {
+        name: '拖拽表单',
+        path: '/drag-form',
+        icon: <MailOutlined />,
+        element: <DragForm />
       }
     ]
   },

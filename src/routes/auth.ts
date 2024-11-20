@@ -7,7 +7,7 @@ function isAuthenticated() {
 }
 
 function getToken() {
-  return sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY)
+  return sessionStorage.getItem(TOKEN_KEY) ?? localStorage.getItem(TOKEN_KEY)
 }
 
 async function checkAuth() {

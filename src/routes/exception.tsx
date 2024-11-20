@@ -13,7 +13,7 @@ const ResultInfo = {
 
 type ResultCodes = keyof typeof ResultInfo
 
-function ResultPage(props: { resultCode: ResultCodes }) {
+function ResultPage(props: Readonly<{ resultCode: ResultCodes }>) {
   const { resultCode } = props
   const resultInfo = ResultInfo[resultCode]
   return <Result title={resultCode} subTitle={resultInfo} extra={<Link to="/">返回首页</Link>} />
